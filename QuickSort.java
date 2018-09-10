@@ -1,49 +1,49 @@
-/*Adam Hoffman, 2000970666
-*CS 326 assignment #1 quicksort in java
-*Compilation: javac QuickSort.java
-*run: java QuickSort 100  ** last argument is array size of numbers to be sorted.
-*The purpose of this program is to write a program in java
-that is able to quicksort a list of user specified size array of integers,
-and print the time it take to complete the sorting of the
-array.
-Utilizes Lomuto partition scheme.
-Sample Expected output: Quicksort took .925 seconds to complete
+/*
+* Adam Hoffman, ID: 2000970666, CS 326-1002, assignment #1 quicksort in java.
+* Compilation: javac QuickSort.java
+*
+* The purpose of this program is to write a program in java that is able to
+* quicksort a list of user specified size array of integers and print the time
+* it take to complete the sorting of the array.
+* Utilizes Lomuto partition scheme.
+*
+* input: in commandline argument after QuickSort should be a user selected int
+* that idicated size of array
+* output: Quicksort took .925 seconds to complete
 */
 public class QuickSort
 {
 /*
-*  Main:
-*      Must accept one argument which will indicate how many numbers to sort
-*              i.e. java quicksort 1000
-*      first allocate an array filled with randomly generate numbers
-*      call quicksort algorithm
-*      print time it took to complete sorting process
-*              i.e. Quicksort took .925ms to complete.
+*  public void: main
+*  Must accept one argument which will indicate how many numbers to sort.
+*  Allocate an array filled with randomly generate numbers.
+*  Use time functions to find the length of Sort to complete in millisecond.
+*  Call quicksort.
+*  print time it took to complete sorting process.
+*  i.e. Quicksort took 0.925ms to complete.
 */
     public static void main(String [] args)
     {
-      long start, MS, NS;
-      int arrSize = Integer.parseInt(args[0]); //changing string to type int for array size
-      int [] randArr = new int[arrSize];  //creating array of type int
+        long start, MS, NS; //used for keeping time of quicksort
+        int arrSize = Integer.parseInt(args[0]); //changing string to type int for array size
+        int [] randArr = new int[arrSize];  //creating array of type int
 
-      fillArray(arrSize, randArr); //fills array with random numebers;
+        fillArray(arrSize, randArr); //fills array with random numebers;
 
-      start = System.nanoTime();
-      quicksort(0, arrSize-1, randArr);
-      //print(arrSize, randArr); //prints array used for error checking sort algorithm
-      //must uncomment the print function as well
-      NS = System.nanoTime() - start;
+        start = System.nanoTime();
+        quicksort(0, arrSize-1, randArr);
+        NS = System.nanoTime() - start;
+        print(arrSize, randArr); //prints array used for error checking sort algorithm
+        //must uncomment the print function as well
 
-
-      MS = NS / 1000000;
-      NS = NS % 1000000;
-      NS = NS / 1000;
-      System.out.println("Quicksort took " + MS + "." + NS +  "ms to complete");
-
-
+        MS = NS / 1000000;
+        NS = NS % 1000000;
+        NS = NS / 1000;
+        System.out.println("Quicksort took " + MS + "." + NS +  "ms to complete");
 
     } //end of main
-/* Public void: fillArray
+/*
+*  Public void: fillArray
 *  Populates the array with random numbers between 0 - 1000;
 *  to change the number range, Math.Random returns a double between
 *  doubles 0.0 and 1.0 and then multiply it by larger than 1000 to
@@ -51,28 +51,29 @@ public class QuickSort
 */
     public static void fillArray(int size, int [] randArr)
     {
-      for(int i = 0; i < size; i++)
-      {
-          randArr[i] = (int) (Math.random() * 1000);
-      }
-    }
+        for(int i = 0; i < size; i++)
+        {
+            randArr[i] = (int) (Math.random() * 1000000000);
+        }
+        return;
+    }//end of fillArray
+
 /*
 *  Public void: quicksort
-*  used to recurisvely call quick sort until array lowindex is
-*  greater than high index, then stops.
-*  utilizes Lomuto partitioning scheme.
+*  Used to recurisvely call quicksort until array low index is greater than
+*  high index, then stops. This indicated end of recursion.
+*  Utilizes Lomuto partitioning scheme.
 */
-
     public static void quicksort(int low, int high, int [] randArr)
     {
 
-      if (low < high)
-      {
-        int pivot = partition(low, high, randArr);
-        quicksort(low, pivot-1, randArr);
-        quicksort(pivot+1, high, randArr);
-      }
-      return;
+        if (low < high)
+        {
+            int pivot = partition(low, high, randArr); //returns location of most recent pivot
+            quicksort(low, pivot-1, randArr);
+            quicksort(pivot+1, high, randArr);
+        }
+        return;
     }
 
 /*public int: parition
@@ -99,15 +100,16 @@ public class QuickSort
 
 
 /*
-*public void: swap
-*swap allows you to swap positions of 2 integers in an array.
-*int a, and b hold the positions of the 2 numbers in the array to be swapped
+* public void: swap
+* swap allows you to swap positions of 2 integers in an array.
+* int a, and b hold the positions of the 2 numbers in the array to be swapped
 */
     private static void swap(int A,int B, int [] randArr)
     {
         int hold = randArr[B];
         randArr[B] = randArr[A];
         randArr[A] = hold;
+        return;
     }
 
 /*
